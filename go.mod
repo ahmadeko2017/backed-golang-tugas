@@ -1,6 +1,6 @@
 module github.com/ahmadeko2017/backed-golang-tugas-1
 
-go 1.25.6
+go 1.24.0
 
 require (
 	github.com/gin-gonic/gin v1.11.0
