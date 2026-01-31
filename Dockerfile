@@ -13,12 +13,10 @@ RUN go mod download
 COPY . .
 
 # Build the application
-# CGO_ENABLED=0 is required for glebarez/sqlite to work purely in Go without C dependencies
-RUN CGO_ENABLED=0 GOOS=linux go build -o main cmd/api/main.go
+RUN GOOS=linux go build -o main cmd/api/main.go
 
-# Seed the database during build
-# This creates tugas1.db with initial data
-RUN SEED_DATA=true SEED_EXIT=true ./main
+# Note: Database connection is handled at runtime via DATABASE_URL (Supabase/Postgres).
+# To seed the remote database use SEED_DATA=true at runtime or in a CI job that has DATABASE_URL set.
 
 # Runtime Stage
 FROM alpine:latest  
@@ -32,12 +30,7 @@ WORKDIR /app
 COPY --from=builder /app/main .
 COPY --from=builder /app/docs ./docs
 COPY --from=builder /app/web ./web
-# Copy the seeded database
-COPY --from=builder /app/tugas1.db .
-
-# Ensure database permissions are correct (readable and writable)
-# SQLite also needs write permission for the directory to create journal files
-RUN chmod 666 tugas1.db && chmod 777 .
+# Database is external (Supabase/Postgres). Ensure DATABASE_URL is provided to the container at runtime.
 
 # Expose port 8080 to the outside world
 EXPOSE 8080

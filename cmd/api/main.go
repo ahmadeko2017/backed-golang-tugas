@@ -10,6 +10,7 @@ import (
 	"github.com/ahmadeko2017/backed-golang-tugas-1/internal/middleware"
 	"github.com/ahmadeko2017/backed-golang-tugas-1/internal/repository"
 	"github.com/ahmadeko2017/backed-golang-tugas-1/internal/service"
+	"github.com/ahmadeko2017/backed-golang-tugas-1/pkg/config"
 	"github.com/ahmadeko2017/backed-golang-tugas-1/pkg/database"
 	"github.com/gin-gonic/gin"
 
@@ -21,6 +22,9 @@ import (
 // @BasePath  /
 
 func main() {
+	// Load configuration (env, optional config file)
+	config.Load()
+
 	// Connect to DB
 	database.Connect()
 

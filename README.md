@@ -1,11 +1,11 @@
 # Tugas 1 - Category API
 
-This is a RESTful API implementation for managing Categories, built using Go, Gin functionality, and GORM with SQLite.
+Ini adalah implementasi RESTful API untuk manajemen Kategori, dibangun menggunakan Go, Gin, dan GORM. Aplikasi ini telah dimigrasi dari SQLite ke **Supabase (Postgres)** untuk penyimpanan data produksi; lihat bagian *Deployment* untuk instruksi koneksi dan seeding.
 
-## 🚀 Features
+## 🚀 Fitur Utama
 
 - **CRUD Operations**: Create, Read, Update, and Delete categories.
-- **Database**: SQLite for easy local development (no additional setup required).
+- **Database**: Supabase (Postgres). Set the `DATABASE_URL` environment variable to connect (e.g. `postgres://user:pass@host:5432/dbname`).
 - **Documentation**: Integrated Swagger UI.
 - **Rate Limiting**: Protected endpoints with a rate limit of 10 requests per second.
 
@@ -14,7 +14,7 @@ This is a RESTful API implementation for managing Categories, built using Go, Gi
 - **Language**: [Go](https://go.dev/)
 - **Framework**: [Gin](https://github.com/gin-gonic/gin)
 - **ORM**: [GORM](https://gorm.io/)
-- **Database Driver**: [glebarez/sqlite](https://github.com/glebarez/sqlite) (Pure Go implementation)
+- **Database Driver**: `gorm.io/driver/postgres` (Postgres driver for GORM)
 - **Docs**: [Swag](https://github.com/swaggo/swag)
 
 ## 📦 Installation & Running
@@ -31,11 +31,24 @@ This is a RESTful API implementation for managing Categories, built using Go, Gi
     ```
 
 3.  **Run the Application**:
+
+    Before running, set `DATABASE_URL` to your Supabase/Postgres connection string. Example:
+    ```bash
+    export DATABASE_URL="postgres://user:password@host:5432/dbname"
+    ```
+
+    Then run:
     ```bash
     go run cmd/api/main.go
     ```
 
     The server will start on port `8080`.
+
+    Optional: To seed the database (be sure `DATABASE_URL` points to the target DB):
+    ```bash
+    export SEED_DATA=true
+    go run cmd/api/main.go
+    ```
 
 ## 🚀 Deployment (Release Mode)
 

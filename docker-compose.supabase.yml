@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: db
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user"]
+      interval: 5s
+      retries: 10
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgres://user:pass@db:5432/db?sslmode=disable
+      - SEED_DATA=true
+    ports:
+      - "8080:8080"
+    restart: on-failure
+
+# Usage:
+# docker compose -f docker-compose.supabase.yml up --build
+# App will connect to the local Postgres at db:5432 and (optionally) seed if SEED_DATA=true

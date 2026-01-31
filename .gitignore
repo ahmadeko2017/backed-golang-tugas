@@ -23,7 +23,7 @@ go.work
 # Environment files
 .env
 
-# SQLite
+# Legacy: SQLite (replaced by Supabase). Keep ignoring local DB files in case of local testing
 *.db
 *.sqlite
 *.sqlite3

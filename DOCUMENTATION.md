@@ -2,6 +2,9 @@
 
 This document explains the purpose and functionality of each Go source file in the project. The project follows a **Clean Architecture** (Layered Architecture) pattern.
 
+**Catatan migrasi:** Proyek ini telah dipindahkan dari SQLite ke Supabase (Postgres). Perubahan termasuk penggunaan `DATABASE_URL` untuk koneksi, penggunaan driver `gorm.io/driver/postgres`, dan pengaturan seeding runtime. Lihat `DEPLOYMENT.md` untuk detail.
+
+
 ## 📂 `cmd/api/`
 
 ### `main.go`
@@ -26,7 +29,7 @@ This document explains the purpose and functionality of each Go source file in t
 ### `category_repository.go`
 **Purpose**: Handles direct database interactions.
 - **Interface** `CategoryRepository`: Defines the contract for data access.
-- **Implementation**: Uses GORM methods (`Create`, `Find`, `Save`, `Delete`) to perform CRUD operations against the SQLite database.
+- **Implementation**: Uses GORM methods (`Create`, `Find`, `Save`, `Delete`) to perform CRUD operations against the Postgres database (Supabase).
 
 ## 📂 `internal/service/`
 
@@ -61,6 +64,6 @@ This document explains the purpose and functionality of each Go source file in t
 ### `db.go`
 **Purpose**: Centralized database configuration.
 - **Functionality**:
-    - `Connect()`: Initializes the connection to the SQLite database (`tugas1.db`).
+    - `Connect()`: Initializes the connection to Postgres using the `DATABASE_URL` environment variable (e.g., Supabase connection string).
     - Performs **Auto Migration** to create/update database tables based on the Entity struct.
-    - Uses the `glebarez/sqlite` driver (pure Go) to ensure cross-platform compatibility without CGO.
+    - Uses the `gorm.io/driver/postgres` driver for GORM.
