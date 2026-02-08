@@ -13,7 +13,7 @@ RUN go mod download
 COPY . .
 
 # Build the application
-RUN GOOS=linux go build -o main cmd/api/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o main cmd/api/main.go
 
 # Note: Database connection is handled at runtime via DATABASE_URL (Supabase/Postgres).
 # To seed the remote database use SEED_DATA=true at runtime or in a CI job that has DATABASE_URL set.

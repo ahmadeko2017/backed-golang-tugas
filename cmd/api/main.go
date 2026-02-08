@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -60,9 +61,6 @@ func main() {
 	// CORS
 	r.Use(middleware.CORSMiddleware())
 
-	// Rate Limit
-	r.Use(middleware.RateLimitMiddleware(10))
-
 	// Health Check
 	startTime := time.Now()
 	healthHandler := handler.NewHealthHandler(startTime)
@@ -112,6 +110,9 @@ func main() {
 		c.File("./docs/swagger.json")
 	})
 
+	// Rate Limit (Applied to API routes below)
+	r.Use(middleware.RateLimitMiddleware(10))
+
 	// Routes
 	c := r.Group("/categories")
 	{
@@ -151,8 +152,12 @@ func main() {
 	})
 
 	// Start server
-	log.Println("Server running on port 8080")
-	if err := r.Run(":8080"); err != nil {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	log.Println("Server running on port " + port)
+	if err := r.Run(":" + port); err != nil {
 		log.Fatal("Failed to start server: ", err)
 	}
 }
