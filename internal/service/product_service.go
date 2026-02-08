@@ -9,7 +9,7 @@ import (
 
 type ProductService interface {
 	CreateProduct(product *entity.Product) error
-	GetAllProducts(name string) ([]entity.Product, error)
+	GetAllProducts(name string, page int, limit int) ([]entity.Product, int64, error)
 	GetProductByID(id uint) (entity.Product, error)
 	UpdateProduct(id uint, product *entity.Product) error
 	DeleteProduct(id uint) error
@@ -36,8 +36,8 @@ func (s *productService) CreateProduct(product *entity.Product) error {
 	return s.repo.Create(product)
 }
 
-func (s *productService) GetAllProducts(name string) ([]entity.Product, error) {
-	return s.repo.FindAll(name)
+func (s *productService) GetAllProducts(name string, page int, limit int) ([]entity.Product, int64, error) {
+	return s.repo.FindAll(name, page, limit)
 }
 
 func (s *productService) GetProductByID(id uint) (entity.Product, error) {

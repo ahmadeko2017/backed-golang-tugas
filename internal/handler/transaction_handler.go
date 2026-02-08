@@ -39,13 +39,13 @@ func formatValidationErrors(err error) []string {
 
 			switch e.Tag() {
 			case "required":
-				msg = fmt.Sprintf("Field '%s' wajib diisi", field)
+				msg = fmt.Sprintf("Field '%s' is required", field)
 			case "min":
-				msg = fmt.Sprintf("Field '%s' minimal %s", field, e.Param())
+				msg = fmt.Sprintf("Field '%s' must be at least %s", field, e.Param())
 			case "gt":
-				msg = fmt.Sprintf("Field '%s' harus lebih dari %s", field, e.Param())
+				msg = fmt.Sprintf("Field '%s' must be greater than %s", field, e.Param())
 			default:
-				msg = fmt.Sprintf("Field '%s' tidak valid", field)
+				msg = fmt.Sprintf("Field '%s' is invalid", field)
 			}
 			errors = append(errors, msg)
 		}
@@ -70,13 +70,13 @@ func (h *TransactionHandler) Checkout(c *gin.Context) {
 		// Check if it's a validation error
 		if validationErrors := formatValidationErrors(err); len(validationErrors) > 0 {
 			c.JSON(http.StatusBadRequest, gin.H{
-				"error":   "Validasi gagal",
+				"error":   "Validation failed",
 				"details": validationErrors,
 			})
 			return
 		}
 		// Other JSON parsing errors
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Format JSON tidak valid"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON format"})
 		return
 	}
 
@@ -93,15 +93,15 @@ func (h *TransactionHandler) Checkout(c *gin.Context) {
 	c.JSON(http.StatusCreated, tx)
 }
 
-// ReportHariIni godoc
+// ReportToday godoc
 // @Summary Today's sales report
 // @Description Returns total revenue, total transactions, and top product for today
 // @Tags report
 // @Produce json
 // @Success 200 {object} ReportResponse
 // @Failure 500 {object} map[string]string
-// @Router /api/report/hari-ini [get]
-func (h *TransactionHandler) ReportHariIni(c *gin.Context) {
+// @Router /api/report/today [get]
+func (h *TransactionHandler) ReportToday(c *gin.Context) {
 	totalRevenue, totalTx, name, qty, err := h.service.ReportToday()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -109,9 +109,9 @@ func (h *TransactionHandler) ReportHariIni(c *gin.Context) {
 	}
 	var top *TopProduct
 	if name != "" && qty > 0 {
-		top = &TopProduct{Nama: name, QtyTerjual: qty}
+		top = &TopProduct{Name: name, SoldQty: qty}
 	}
-	resp := ReportResponse{TotalRevenue: totalRevenue, TotalTransaksi: totalTx, ProdukTerlaris: top}
+	resp := ReportResponse{TotalRevenue: totalRevenue, TotalTransactions: totalTx, BestSeller: top}
 	c.JSON(http.StatusOK, resp)
 }
 
@@ -153,8 +153,8 @@ func (h *TransactionHandler) ReportRange(c *gin.Context) {
 	}
 	var top *TopProduct
 	if name != "" && qty > 0 {
-		top = &TopProduct{Nama: name, QtyTerjual: qty}
+		top = &TopProduct{Name: name, SoldQty: qty}
 	}
-	resp := ReportResponse{TotalRevenue: totalRevenue, TotalTransaksi: totalTx, ProdukTerlaris: top}
+	resp := ReportResponse{TotalRevenue: totalRevenue, TotalTransactions: totalTx, BestSeller: top}
 	c.JSON(http.StatusOK, resp)
 }

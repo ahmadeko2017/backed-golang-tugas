@@ -3,6 +3,7 @@ package database
 import (
 	"log"
 	"os"
+	"time"
 
 	"github.com/ahmadeko2017/backed-golang-tugas/internal/entity"
 	"github.com/ahmadeko2017/backed-golang-tugas/pkg/config"
@@ -29,6 +30,33 @@ func Connect() {
 	if err != nil {
 		log.Fatal("Failed to connect to database (Postgres): ", err)
 	}
+
+	// Connection Pool Configuration
+	sqlDB, err := DB.DB()
+	if err != nil {
+		log.Fatal("Failed to get database instance: ", err)
+	}
+
+	// Set Max Idle Connections
+	maxIdle := config.GetInt("DB_MAX_IDLE_CONNS")
+	if maxIdle == 0 {
+		maxIdle = 10
+	}
+	sqlDB.SetMaxIdleConns(maxIdle)
+
+	// Set Max Open Connections
+	maxOpen := config.GetInt("DB_MAX_OPEN_CONNS")
+	if maxOpen == 0 {
+		maxOpen = 100
+	}
+	sqlDB.SetMaxOpenConns(maxOpen)
+
+	// Set Connection Max Lifetime
+	lifetime := config.GetInt("DB_CONN_MAX_LIFETIME")
+	if lifetime == 0 {
+		lifetime = 3600
+	}
+	sqlDB.SetConnMaxLifetime(time.Duration(lifetime) * time.Second)
 
 	// Determine whether migration is needed:
 	// - If tables don't exist -> migrate
@@ -57,14 +85,15 @@ func Connect() {
 		}
 	}
 
-	if needsMigration {
-		// Auto Migrate
-		err = DB.AutoMigrate(&entity.Category{}, &entity.Product{}, &entity.Transaction{}, &entity.TransactionDetail{})
-		if err != nil {
-			log.Fatal("Failed to migrate database: ", err)
-		}
-		log.Println("Database migrated successfully (Postgres)")
+	// Auto Migrate (Always run to ensure schema is up to date, e.g. new indexes)
+	err = DB.AutoMigrate(&entity.Category{}, &entity.Product{}, &entity.Transaction{}, &entity.TransactionDetail{})
+	if err != nil {
+		log.Fatal("Failed to migrate database: ", err)
+	}
+	log.Println("Database migrated successfully (Postgres)")
 
+	// Seed sample data only if database is empty
+	if needsMigration {
 		// Seed sample data (optional, controlled by configuration / environment variable)
 		if config.GetBool("SEED_DATA") {
 			SeedData()
@@ -76,6 +105,6 @@ func Connect() {
 			log.Println("Database appears empty or uninitialized. To insert sample data, set SEED_DATA=true and restart the application.")
 		}
 	} else {
-		log.Println("Database appears to have existing data; skipping migration and seed to avoid modifying current data")
+		log.Println("Database contains data; skipping seed.")
 	}
 }

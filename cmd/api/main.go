@@ -47,7 +47,18 @@ func main() {
 	transactionHandler := handler.NewTransactionHandler(transactionService)
 
 	// Setup Router
-	r := gin.Default()
+	r := gin.New()
+	r.Use(gin.Logger())
+	r.Use(middleware.RecoveryMiddleware())
+
+	// Security Headers
+	r.Use(middleware.SecurityHeadersMiddleware())
+
+	// Body Size Limit (1MB)
+	r.Use(middleware.BodySizeMiddleware(1024 * 1024))
+
+	// CORS
+	r.Use(middleware.CORSMiddleware())
 
 	// Rate Limit
 	r.Use(middleware.RateLimitMiddleware(10))
@@ -123,7 +134,7 @@ func main() {
 	api := r.Group("/api")
 	{
 		api.POST("/checkout", transactionHandler.Checkout)
-		api.GET("/report/hari-ini", transactionHandler.ReportHariIni)
+		api.GET("/report/today", transactionHandler.ReportToday)
 		api.GET("/report", transactionHandler.ReportRange)
 	}
 

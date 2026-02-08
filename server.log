@@ -1,0 +1,207 @@
+nohup: ignoring input
+
+2026/02/08 04:26:48 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:66 [33mSLOW SQL >= 200ms
+[0m[31;1m[718.947ms] [33m[rows:1][35m SELECT count(*) FROM information_schema.tables WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND table_type = 'BASE TABLE'[0m
+
+2026/02/08 04:26:48 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:67 [33mSLOW SQL >= 200ms
+[0m[31;1m[210.806ms] [33m[rows:1][35m SELECT count(*) FROM information_schema.tables WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'products' AND table_type = 'BASE TABLE'[0m
+
+2026/02/08 04:26:48 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:80 [33mSLOW SQL >= 200ms
+[0m[31;1m[219.336ms] [33m[rows:1][35m SELECT count(*) FROM "products" WHERE "products"."deleted_at" IS NULL[0m
+
+2026/02/08 04:26:49 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[220.040ms] [33m[rows:1][35m SELECT count(*) FROM information_schema.tables WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND table_type = 'BASE TABLE'[0m
+
+2026/02/08 04:26:49 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[213.388ms] [33m[rows:-][35m SELECT c.column_name, c.is_nullable = 'YES', c.udt_name, c.character_maximum_length, c.numeric_precision, c.numeric_precision_radix, c.numeric_scale, c.datetime_precision, 8 * typlen, c.column_default, pd.description, c.identity_increment FROM information_schema.columns AS c JOIN pg_type AS pgt ON c.udt_name = pgt.typname LEFT JOIN pg_catalog.pg_description as pd ON pd.objsubid = c.ordinal_position AND pd.objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = c.table_name AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = c.table_schema)) where table_catalog = 'postgres' AND table_schema = CURRENT_SCHEMA() AND table_name = 'categories'[0m
+
+2026/02/08 04:26:49 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[261.457ms] [33m[rows:-][35m SELECT * FROM "categories" LIMIT 5[0m
+
+2026/02/08 04:26:49 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[212.676ms] [33m[rows:-][35m SELECT constraint_name FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'postgres' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'categories' AND constraint_type = 'UNIQUE'[0m
+
+2026/02/08 04:26:50 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[310.570ms] [33m[rows:-][35m SELECT c.column_name, constraint_name, constraint_type FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'postgres' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'categories'[0m
+
+2026/02/08 04:26:50 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[306.170ms] [33m[rows:-][35m SELECT a.attname as column_name, format_type(a.atttypid, a.atttypmod) AS data_type
+		FROM pg_attribute a JOIN pg_class b ON a.attrelid = b.oid AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA())
+		WHERE a.attnum > 0 -- hide internal columns
+		AND NOT a.attisdropped -- hide deleted columns
+		AND b.relname = 'categories'[0m
+
+2026/02/08 04:26:50 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[307.108ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:26:51 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[306.496ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'name') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:26:51 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[201.072ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'description') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:26:51 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[413.339ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'created_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:26:52 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[317.539ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'updated_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:26:52 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[297.747ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'deleted_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:26:53 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[212.056ms] [33m[rows:1][35m SELECT CURRENT_DATABASE()[0m
+
+2026/02/08 04:26:53 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[310.339ms] [33m[rows:-][35m SELECT c.column_name, c.is_nullable = 'YES', c.udt_name, c.character_maximum_length, c.numeric_precision, c.numeric_precision_radix, c.numeric_scale, c.datetime_precision, 8 * typlen, c.column_default, pd.description, c.identity_increment FROM information_schema.columns AS c JOIN pg_type AS pgt ON c.udt_name = pgt.typname LEFT JOIN pg_catalog.pg_description as pd ON pd.objsubid = c.ordinal_position AND pd.objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = c.table_name AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = c.table_schema)) where table_catalog = 'postgres' AND table_schema = CURRENT_SCHEMA() AND table_name = 'products'[0m
+
+2026/02/08 04:26:53 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[307.660ms] [33m[rows:-][35m SELECT * FROM "products" LIMIT 5[0m
+
+2026/02/08 04:26:53 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[306.280ms] [33m[rows:-][35m SELECT constraint_name FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'postgres' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'products' AND constraint_type = 'UNIQUE'[0m
+
+2026/02/08 04:26:54 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[302.992ms] [33m[rows:-][35m SELECT c.column_name, constraint_name, constraint_type FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'postgres' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'products'[0m
+
+2026/02/08 04:26:54 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[207.394ms] [33m[rows:-][35m SELECT a.attname as column_name, format_type(a.atttypid, a.atttypmod) AS data_type
+		FROM pg_attribute a JOIN pg_class b ON a.attrelid = b.oid AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA())
+		WHERE a.attnum > 0 -- hide internal columns
+		AND NOT a.attisdropped -- hide deleted columns
+		AND b.relname = 'products'[0m
+
+2026/02/08 04:26:54 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[202.173ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'products' AND column_name = 'id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'products' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:26:55 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[225.241ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'products' AND column_name = 'description') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'products' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:26:55 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[300.782ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'products' AND column_name = 'price') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'products' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:26:55 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[307.268ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'products' AND column_name = 'stock') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'products' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:26:55 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[213.441ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'products' AND column_name = 'category_id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'products' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:26:56 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[229.202ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'products' AND column_name = 'created_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'products' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:26:56 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[287.402ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'products' AND column_name = 'updated_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'products' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:26:57 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[205.661ms] [33m[rows:1][35m SELECT count(*) FROM pg_indexes WHERE tablename = 'products' AND indexname = 'idx_products_name' AND schemaname = CURRENT_SCHEMA()[0m
+
+2026/02/08 04:26:57 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[310.253ms] [33m[rows:1][35m SELECT count(*) FROM pg_indexes WHERE tablename = 'products' AND indexname = 'idx_products_category_id' AND schemaname = CURRENT_SCHEMA()[0m
+
+2026/02/08 04:26:57 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[307.181ms] [33m[rows:1][35m SELECT count(*) FROM pg_indexes WHERE tablename = 'products' AND indexname = 'idx_products_deleted_at' AND schemaname = CURRENT_SCHEMA()[0m
+
+2026/02/08 04:26:57 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[204.738ms] [33m[rows:1][35m SELECT count(*) FROM information_schema.tables WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'transactions' AND table_type = 'BASE TABLE'[0m
+
+2026/02/08 04:26:58 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[210.480ms] [33m[rows:1][35m SELECT CURRENT_DATABASE()[0m
+
+2026/02/08 04:26:58 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[297.078ms] [33m[rows:-][35m SELECT c.column_name, c.is_nullable = 'YES', c.udt_name, c.character_maximum_length, c.numeric_precision, c.numeric_precision_radix, c.numeric_scale, c.datetime_precision, 8 * typlen, c.column_default, pd.description, c.identity_increment FROM information_schema.columns AS c JOIN pg_type AS pgt ON c.udt_name = pgt.typname LEFT JOIN pg_catalog.pg_description as pd ON pd.objsubid = c.ordinal_position AND pd.objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = c.table_name AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = c.table_schema)) where table_catalog = 'postgres' AND table_schema = CURRENT_SCHEMA() AND table_name = 'transactions'[0m
+
+2026/02/08 04:26:58 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[205.300ms] [33m[rows:-][35m SELECT * FROM "transactions" LIMIT 5[0m
+
+2026/02/08 04:26:58 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[310.131ms] [33m[rows:-][35m SELECT constraint_name FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'postgres' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'transactions' AND constraint_type = 'UNIQUE'[0m
+
+2026/02/08 04:26:59 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[200.771ms] [33m[rows:-][35m SELECT c.column_name, constraint_name, constraint_type FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'postgres' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'transactions'[0m
+
+2026/02/08 04:26:59 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[310.668ms] [33m[rows:-][35m SELECT a.attname as column_name, format_type(a.atttypid, a.atttypmod) AS data_type
+		FROM pg_attribute a JOIN pg_class b ON a.attrelid = b.oid AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA())
+		WHERE a.attnum > 0 -- hide internal columns
+		AND NOT a.attisdropped -- hide deleted columns
+		AND b.relname = 'transactions'[0m
+
+2026/02/08 04:26:59 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[307.232ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'transactions' AND column_name = 'id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'transactions' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:26:59 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[210.982ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'transactions' AND column_name = 'created_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'transactions' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:27:00 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[222.981ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'transactions' AND column_name = 'total') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'transactions' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:27:00 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[279.594ms] [33m[rows:1][35m SELECT count(*) FROM pg_indexes WHERE tablename = 'transactions' AND indexname = 'idx_transactions_created_at' AND schemaname = CURRENT_SCHEMA()[0m
+
+2026/02/08 04:27:00 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[309.420ms] [33m[rows:1][35m SELECT count(*) FROM information_schema.tables WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'transaction_details' AND table_type = 'BASE TABLE'[0m
+
+2026/02/08 04:27:01 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[213.129ms] [33m[rows:-][35m SELECT c.column_name, c.is_nullable = 'YES', c.udt_name, c.character_maximum_length, c.numeric_precision, c.numeric_precision_radix, c.numeric_scale, c.datetime_precision, 8 * typlen, c.column_default, pd.description, c.identity_increment FROM information_schema.columns AS c JOIN pg_type AS pgt ON c.udt_name = pgt.typname LEFT JOIN pg_catalog.pg_description as pd ON pd.objsubid = c.ordinal_position AND pd.objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = c.table_name AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = c.table_schema)) where table_catalog = 'postgres' AND table_schema = CURRENT_SCHEMA() AND table_name = 'transaction_details'[0m
+
+2026/02/08 04:27:01 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[211.891ms] [33m[rows:-][35m SELECT * FROM "transaction_details" LIMIT 5[0m
+
+2026/02/08 04:27:01 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[222.111ms] [33m[rows:-][35m SELECT c.column_name, constraint_name, constraint_type FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'postgres' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'transaction_details'[0m
+
+2026/02/08 04:27:01 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[249.926ms] [33m[rows:-][35m SELECT a.attname as column_name, format_type(a.atttypid, a.atttypmod) AS data_type
+		FROM pg_attribute a JOIN pg_class b ON a.attrelid = b.oid AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA())
+		WHERE a.attnum > 0 -- hide internal columns
+		AND NOT a.attisdropped -- hide deleted columns
+		AND b.relname = 'transaction_details'[0m
+
+2026/02/08 04:27:02 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[203.974ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'transaction_details' AND column_name = 'id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'transaction_details' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:27:02 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[232.148ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'transaction_details' AND column_name = 'transaction_id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'transaction_details' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:27:02 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[319.293ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'transaction_details' AND column_name = 'product_id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'transaction_details' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:27:03 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[281.084ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'transaction_details' AND column_name = 'quantity') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'transaction_details' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:27:03 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[225.302ms] [33m[rows:0][35m SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'transaction_details' AND column_name = 'price') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'transaction_details' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))[0m
+
+2026/02/08 04:27:03 [32m/home/kurniawan/github/backed-golang-tugas/pkg/database/db.go:89 [33mSLOW SQL >= 200ms
+[0m[31;1m[211.509ms] [33m[rows:1][35m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'transaction_details' AND constraint_name = 'fk_transaction_details_product'[0m
+2026/02/08 04:27:03 Database migrated successfully (Postgres)
+2026/02/08 04:27:03 Database contains data; skipping seed.
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /health                   --> github.com/ahmadeko2017/backed-golang-tugas/internal/handler.(*HealthHandler).HealthCheck-fm (7 handlers)
+[GIN-debug] GET    /static/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (7 handlers)
+[GIN-debug] HEAD   /static/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (7 handlers)
+[GIN-debug] GET    /                         --> main.main.func1 (7 handlers)
+[GIN-debug] GET    /swagger                  --> main.main.func2 (7 handlers)
+[GIN-debug] GET    /swagger/index.html       --> main.main.func3 (7 handlers)
+[GIN-debug] GET    /swagger/doc.json         --> main.main.func4 (7 handlers)
+[GIN-debug] GET    /categories               --> github.com/ahmadeko2017/backed-golang-tugas/internal/handler.(*CategoryHandler).GetAllCategories-fm (7 handlers)
+[GIN-debug] POST   /categories               --> github.com/ahmadeko2017/backed-golang-tugas/internal/handler.(*CategoryHandler).CreateCategory-fm (7 handlers)
+[GIN-debug] GET    /categories/:id           --> github.com/ahmadeko2017/backed-golang-tugas/internal/handler.(*CategoryHandler).GetCategoryByID-fm (7 handlers)
+[GIN-debug] PUT    /categories/:id           --> github.com/ahmadeko2017/backed-golang-tugas/internal/handler.(*CategoryHandler).UpdateCategory-fm (7 handlers)
+[GIN-debug] DELETE /categories/:id           --> github.com/ahmadeko2017/backed-golang-tugas/internal/handler.(*CategoryHandler).DeleteCategory-fm (7 handlers)
+[GIN-debug] GET    /products                 --> github.com/ahmadeko2017/backed-golang-tugas/internal/handler.(*ProductHandler).GetAllProducts-fm (7 handlers)
+[GIN-debug] POST   /products                 --> github.com/ahmadeko2017/backed-golang-tugas/internal/handler.(*ProductHandler).CreateProduct-fm (7 handlers)
+[GIN-debug] GET    /products/:id             --> github.com/ahmadeko2017/backed-golang-tugas/internal/handler.(*ProductHandler).GetProductByID-fm (7 handlers)
+[GIN-debug] PUT    /products/:id             --> github.com/ahmadeko2017/backed-golang-tugas/internal/handler.(*ProductHandler).UpdateProduct-fm (7 handlers)
+[GIN-debug] DELETE /products/:id             --> github.com/ahmadeko2017/backed-golang-tugas/internal/handler.(*ProductHandler).DeleteProduct-fm (7 handlers)
+[GIN-debug] POST   /api/checkout             --> github.com/ahmadeko2017/backed-golang-tugas/internal/handler.(*TransactionHandler).Checkout-fm (7 handlers)
+[GIN-debug] GET    /api/report/today         --> github.com/ahmadeko2017/backed-golang-tugas/internal/handler.(*TransactionHandler).ReportToday-fm (7 handlers)
+[GIN-debug] GET    /api/report               --> github.com/ahmadeko2017/backed-golang-tugas/internal/handler.(*TransactionHandler).ReportRange-fm (7 handlers)
+2026/02/08 04:27:03 Server running on port 8080
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://github.com/gin-gonic/gin/blob/master/docs/doc.md#dont-trust-all-proxies for details.
+[GIN-debug] Listening and serving HTTP on :8080
+signal: killed

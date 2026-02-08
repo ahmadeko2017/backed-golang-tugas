@@ -1,9 +1,11 @@
 package handler
 
 import (
+	"math"
 	"net/http"
 	"strconv"
 
+	"github.com/ahmadeko2017/backed-golang-tugas/internal/dto"
 	"github.com/ahmadeko2017/backed-golang-tugas/internal/entity"
 	"github.com/ahmadeko2017/backed-golang-tugas/internal/service"
 	"github.com/gin-gonic/gin"
@@ -52,21 +54,38 @@ func (h *ProductHandler) CreateProduct(c *gin.Context) {
 
 // GetAllProducts godoc
 // @Summary Get all products
-// @Description Get a list of all products, optionally filtered by name
+// @Description Get a list of all products, optionally filtered by name, with pagination
 // @Tags products
 // @Produce json
 // @Param name query string false "Search by product name"
-// @Success 200 {array} entity.Product
+// @Param page query int false "Page number (default 1)"
+// @Param limit query int false "Items per page (default 10)"
+// @Success 200 {object} dto.PaginatedResponse
 // @Failure 500 {object} map[string]string "Internal Server Error"
 // @Router /products [get]
 func (h *ProductHandler) GetAllProducts(c *gin.Context) {
 	name := c.Query("name")
-	products, err := h.service.GetAllProducts(name)
+	page, limit := dto.GetPaginationParams(c)
+
+	products, total, err := h.service.GetAllProducts(name, page, limit)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, products)
+
+	totalPages := int(math.Ceil(float64(total) / float64(limit)))
+
+	response := dto.PaginatedResponse{
+		Data: products,
+		Meta: dto.PaginationMeta{
+			Page:       page,
+			Limit:      limit,
+			Total:      total,
+			TotalPages: totalPages,
+		},
+	}
+
+	c.JSON(http.StatusOK, response)
 }
 
 // GetProductByID godoc

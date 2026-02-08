@@ -1,5 +1,22 @@
 basePath: /
 definitions:
+  dto.PaginatedResponse:
+    properties:
+      data: {}
+      meta:
+        $ref: '#/definitions/dto.PaginationMeta'
+    type: object
+  dto.PaginationMeta:
+    properties:
+      limit:
+        type: integer
+      page:
+        type: integer
+      total:
+        type: integer
+      total_pages:
+        type: integer
+    type: object
   entity.Category:
     properties:
       created_at:
@@ -130,18 +147,18 @@ definitions:
     type: object
   handler.ReportResponse:
     properties:
-      produk_terlaris:
+      best_seller:
         $ref: '#/definitions/handler.TopProduct'
       total_revenue:
         type: number
-      total_transaksi:
+      total_transactions:
         type: integer
     type: object
   handler.TopProduct:
     properties:
-      nama:
+      name:
         type: string
-      qty_terjual:
+      sold_qty:
         type: integer
     type: object
 info:
@@ -220,7 +237,7 @@ paths:
       summary: Sales report for a date range
       tags:
       - report
-  /api/report/hari-ini:
+  /api/report/today:
     get:
       description: Returns total revenue, total transactions, and top product for
         today
@@ -387,21 +404,27 @@ paths:
       - health
   /products:
     get:
-      description: Get a list of all products, optionally filtered by name
+      description: Get a list of all products, optionally filtered by name, with pagination
       parameters:
       - description: Search by product name
         in: query
         name: name
         type: string
+      - description: Page number (default 1)
+        in: query
+        name: page
+        type: integer
+      - description: Items per page (default 10)
+        in: query
+        name: limit
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            items:
-              $ref: '#/definitions/entity.Product'
-            type: array
+            $ref: '#/definitions/dto.PaginatedResponse'
         "500":
           description: Internal Server Error
           schema:

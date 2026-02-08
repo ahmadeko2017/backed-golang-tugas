@@ -119,7 +119,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/report/hari-ini": {
+        "/api/report/today": {
             "get": {
                 "description": "Returns total revenue, total transactions, and top product for today",
                 "produces": [
@@ -369,7 +369,7 @@ const docTemplate = `{
         },
         "/products": {
             "get": {
-                "description": "Get a list of all products, optionally filtered by name",
+                "description": "Get a list of all products, optionally filtered by name, with pagination",
                 "produces": [
                     "application/json"
                 ],
@@ -383,16 +383,25 @@ const docTemplate = `{
                         "description": "Search by product name",
                         "name": "name",
                         "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number (default 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page (default 10)",
+                        "name": "limit",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/entity.Product"
-                            }
+                            "$ref": "#/definitions/dto.PaginatedResponse"
                         }
                     },
                     "500": {
@@ -593,6 +602,32 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "dto.PaginatedResponse": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "meta": {
+                    "$ref": "#/definitions/dto.PaginationMeta"
+                }
+            }
+        },
+        "dto.PaginationMeta": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "total": {
+                    "type": "integer"
+                },
+                "total_pages": {
+                    "type": "integer"
+                }
+            }
+        },
         "entity.Category": {
             "type": "object",
             "required": [
@@ -788,13 +823,13 @@ const docTemplate = `{
         "handler.ReportResponse": {
             "type": "object",
             "properties": {
-                "produk_terlaris": {
+                "best_seller": {
                     "$ref": "#/definitions/handler.TopProduct"
                 },
                 "total_revenue": {
                     "type": "number"
                 },
-                "total_transaksi": {
+                "total_transactions": {
                     "type": "integer"
                 }
             }
@@ -802,10 +837,10 @@ const docTemplate = `{
         "handler.TopProduct": {
             "type": "object",
             "properties": {
-                "nama": {
+                "name": {
                     "type": "string"
                 },
-                "qty_terjual": {
+                "sold_qty": {
                     "type": "integer"
                 }
             }

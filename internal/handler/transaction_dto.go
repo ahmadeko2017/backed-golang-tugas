@@ -11,12 +11,12 @@ type CheckoutRequest struct {
 }
 
 type ReportResponse struct {
-	TotalRevenue   float64     `json:"total_revenue"`
-	TotalTransaksi int64       `json:"total_transaksi"`
-	ProdukTerlaris *TopProduct `json:"produk_terlaris,omitempty"`
+	TotalRevenue      float64     `json:"total_revenue"`
+	TotalTransactions int64       `json:"total_transactions"`
+	BestSeller        *TopProduct `json:"best_seller,omitempty"`
 }
 
 type TopProduct struct {
-	Nama       string `json:"nama"`
-	QtyTerjual int64  `json:"qty_terjual"`
+	Name    string `json:"name"`
+	SoldQty int64  `json:"sold_qty"`
 }
